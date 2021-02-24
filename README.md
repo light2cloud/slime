@@ -557,7 +557,7 @@ The above configuration limits 10 requests per second for the v1 version of the 
 apiVersion: microservice.netease.com/v1alpha1
 kind: SmartLimiter
 metadata:
-  name: test-svc
+  name: reviews
   namespace: default
 spec:
   sets:
@@ -690,7 +690,7 @@ metadata:
 spec:
   descriptors:
   - action:
-      quota: "3/{pod}"
+      quota: "3/{._base.pod}"
       fill_interval:
         seconds: 10
     condition: "true"
