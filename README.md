@@ -109,7 +109,7 @@ metadata:
   name: {{your svc}}
   namespace: {{your ns}}
   ownerReferences:
-  - apiVersion: microservice.netease.com/v1alpha1
+  - apiVersion: microservice.slime.io/v1alpha1
     blockOwnerDeletion: true
     controller: true
     kind: ServiceFence
@@ -310,7 +310,7 @@ metadata:
   name: productpage
   namespace: default
   ownerReferences:
-  - apiVersion: microservice.netease.com/v1alpha1
+  - apiVersion: microservice.slime.io/v1alpha1
     blockOwnerDeletion: true
     controller: true
     kind: ServiceFence
@@ -341,7 +341,7 @@ metadata:
   name: productpage
   namespace: default
   ownerReferences:
-  - apiVersion: microservice.netease.com/v1alpha1
+  - apiVersion: microservice.slime.io/v1alpha1
     blockOwnerDeletion: true
     controller: true
     kind: ServiceFence
@@ -392,7 +392,7 @@ spec:
 **enable/disable**
 Configure PluginManager in the following format to open the built-in plugin:
 ```yaml
-apiVersion: microservice.netease.com/v1alpha1
+apiVersion: microservice.slime.io/v1alpha1
 kind: PluginManager
 metadata:
   name: my-plugin
@@ -413,7 +413,7 @@ Set the enable field to false to disable the plugin.
 
 The global configuration corresponds to the plug-in configuration in LDS. Set the global configuration in the following format:
 ```yaml
-apiVersion: microservice.netease.com/v1alpha1
+apiVersion: microservice.slime.io/v1alpha1
 kind: PluginManager
 metadata:
   name: my-plugin
@@ -437,7 +437,7 @@ spec:
 
 Configure EnvoyPlugin in the following format:
 ```yaml
-apiVersion: microservice.netease.com/v1alpha1
+apiVersion: microservice.slime.io/v1alpha1
 kind: EnvoyPlugin
 metadata:
   name: project1-abc
@@ -536,7 +536,7 @@ histogram_quantile(0.99, sum(rate(istio_request_duration_milliseconds_bucket{kub
 In istio's system, users can define subsets for services through DestinationRule, and customize service traffic rules such as load balancing and connection pooling for them. RateLimit also belongs to this kind of service traffic rules. Through the slime framework, we can not only customize the rateLimit rules for services, but also for subsets, as shown below:
 
 ```yaml
-apiVersion: microservice.netease.com/v1alpha1
+apiVersion: microservice.slime.io/v1alpha1
 kind: SmartLimiter
 metadata:
   name: reviews
@@ -554,7 +554,7 @@ spec:
 The above configuration limits 10 requests per second for the v1 version of the reviews service. After submitting the configuration, the status information and ratelimit information of the instance under the service will be displayed in `status`, as follows:
 
 ```yaml
-apiVersion: microservice.netease.com/v1alpha1
+apiVersion: microservice.slime.io/v1alpha1
 kind: SmartLimiter
 metadata:
   name: reviews
@@ -583,7 +583,7 @@ status:
 The metrics information entry can be configured in `condition`. For example, if the current limit is triggered when the cpu exceeds 300ms, the following configuration can be performed:
 
 ```yaml
-apiVersion: microservice.netease.com/v1alpha1
+apiVersion: microservice.slime.io/v1alpha1
 kind: SmartLimiter
 metadata:
   name: reviews
@@ -625,7 +625,7 @@ The formula in the condition will be rendered according to the entry of endPoint
 Due to the lack of global quota management components, we cannot achieve precise service ratelimit, but assuming that the load balance is ideal, 
 (instance quota) = (service quota)/(the number of instances). The service quota of test-svc is 3, then the quota field can be configured to 3/{pod} to achieve service-level ratelimit. When the service is expanded, you can see the change of the instance quota in status.
 ```yaml
-apiVersion: microservice.netease.com/v1alpha1
+apiVersion: microservice.slime.io/v1alpha1
 kind: SmartLimiter
 metadata:
   name: reviews
@@ -682,7 +682,7 @@ $ kubectl apply -f https://raw.githubusercontent.com/ydh926/slime/master/samples
 5. make sure resource has been creaded.
 ```
 $ kubectl get smartlimiter reviews -oyaml
-apiVersion: microservice.netease.com/v1alpha1
+apiVersion: microservice.slime.io/v1alpha1
 kind: SmartLimiter
 metadata:
   name: reviews
@@ -708,7 +708,7 @@ metadata:
   name: reviews.default.local-ratelimit
   namespace: default
   ownerReferences:
-  - apiVersion: microservice.netease.com/v1alpha1
+  - apiVersion: microservice.slime.io/v1alpha1
     blockOwnerDeletion: true
     controller: true
     kind: SmartLimiter
